@@ -1,8 +1,8 @@
 const ErrorHandler = require("../utils/ErrorHandler");
-const catchAsyncErrors = require("./catchAsyncError");
+const catchAsyncErrors = require("./catchAsyncErrors");
 const jwt = require("jsonwebtoken");
 const User = require("../model/user");
-// const Shop = require("../model/shop");
+const Shop = require("../model/shop");
 
 exports.isAuthenticated = catchAsyncErrors(async(req,res,next) => {
     const {token} = req.cookies;

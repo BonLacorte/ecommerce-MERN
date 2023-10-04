@@ -6,6 +6,12 @@ import ProductsPage from '../pages/ProductsPage.js'
 import BestSellingPage from '../pages/BestSellingPage.js'
 import EventsPage from '../pages/EventsPage.js'
 import FAQPage from '../pages/FAQPage.js'
+import ProductDetailsPage from '../pages/ProductDetailsPage.js'
+import ProfilePage from '../pages/ProfilePage.js'
+import CheckoutPage from '../pages/CheckoutPage.js'
+import ShopCreatePage from '../pages/ShopCreatePage.js'
+import SellerActivationPage from '../pages/SellerActivationPage.js'
+import ShopLoginPage from '../pages/ShopLoginPage.js'
 
 export {
     LoginPage,
@@ -15,5 +21,11 @@ export {
     ProductsPage,
     BestSellingPage,
     EventsPage,
-    FAQPage
+    FAQPage,
+    ProductDetailsPage,
+    ProfilePage,
+    CheckoutPage,
+    ShopCreatePage,
+    SellerActivationPage,
+    ShopLoginPage
 }
