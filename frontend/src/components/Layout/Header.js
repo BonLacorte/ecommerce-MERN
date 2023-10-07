@@ -22,7 +22,7 @@ const Header = ({ activeHeading }) => {
     // const { isSeller } = useSelector((state) => state.seller);
     // const { wishlist } = useSelector((state) => state.wishlist);
     // const { cart } = useSelector((state) => state.cart);
-    // const { allProducts } = useSelector((state) => state.products);
+    const { allProducts } = useSelector((state) => state.products);
     const [searchTerm, setSearchTerm] = useState("");
     const [searchData, setSearchData] = useState(null);
     const [active, setActive] = useState(false);
@@ -34,15 +34,12 @@ const Header = ({ activeHeading }) => {
     const handleSearchChange = (e) => {
         const term = e.target.value;
         setSearchTerm(term);
-
-        // const filteredProducts =
-        // allProducts &&
-        // allProducts.filter((product) =>
-        //     product.name.toLowerCase().includes(term.toLowerCase())
-        // );
-        // const filteredProducts = productData && productData.filter((product) => product.name.toLowerCase().includes(term.toLowerCase()))
-        const filteredProducts = productData.filter((product) => product.name.toLowerCase().includes(term.toLowerCase()))
-        console.log(filteredProducts)
+    
+        const filteredProducts =
+            allProducts &&
+            allProducts.filter((product) =>
+                product.name.toLowerCase().includes(term.toLowerCase())
+        );
         setSearchData(filteredProducts);
     };
 
@@ -92,8 +89,8 @@ const Header = ({ activeHeading }) => {
                                     <Link to={`/product/${Product_name}`}>
                                         <div className="w-full flex items-start-py-3">
                                             <img
-                                                // src={`${i.images[0]?.url}`}
-                                                src={i.image_Url[0].url}
+                                                src={`${i.images[0]?.url}`}
+                                                // src={i.image_Url[0].url}
                                                 alt=""
                                                 className="w-[40px] h-[40px] mr-[10px]"
                                             />

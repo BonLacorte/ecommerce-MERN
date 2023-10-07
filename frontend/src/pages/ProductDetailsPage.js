@@ -8,10 +8,9 @@ import { useSelector } from "react-redux";
 import { productData } from "../static/data";
 
 const ProductDetailsPage = () => {
-    // const { allProducts } = useSelector((state) => state.products);
-    // const { allEvents } = useSelector((state) => state.events);
-    const { id } = useParams();
-    // const [data, setData] = useState(null);
+    const { allProducts } = useSelector((state) => state.products);
+    const { allEvents } = useSelector((state) => state.events);
+    // const { id } = useParams();
     const [searchParams] = useSearchParams();
     const eventData = searchParams.get("isEvent");
 
@@ -21,18 +20,24 @@ const ProductDetailsPage = () => {
 
     console.log(name)
 
+    // useEffect(() => {
+    //     // if (eventData !== null) {
+    //     //     const data = allEvents && allEvents.find((i) => i._id === id);
+    //     //     setData(data);
+    //     // } else {
+    //     //     const data = allProducts && allProducts.find((i) => i._id === id);
+    //     //     setData(data);
+    //     // }
+    //     const data = productData.find((i) => i.name === productName)
+    //     setData(data)
+    // // }, [allProducts, allEvents]);
+    // }, []);
+
+
     useEffect(() => {
-        // if (eventData !== null) {
-        //     const data = allEvents && allEvents.find((i) => i._id === id);
-        //     setData(data);
-        // } else {
-        //     const data = allProducts && allProducts.find((i) => i._id === id);
-        //     setData(data);
-        // }
-        const data = productData.find((i) => i.name === productName)
+        const data = allProducts && allProducts.find((i) => i.name === productName)
         setData(data)
-    // }, [allProducts, allEvents]);
-    }, []);
+    }, [])
 
     return (
         <div>

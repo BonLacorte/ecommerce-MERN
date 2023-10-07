@@ -7,7 +7,7 @@ import {
 } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-// import { getAllProductsShop } from "../../redux/actions/product";
+import { getAllProductsShop } from "../../redux/actions/product";
 import { server } from "../../server";
 import styles from "../../styles/styles";
 // import {
@@ -23,20 +23,22 @@ const ProductDetails = ({ data }) => {
     //   const { wishlist } = useSelector((state) => state.wishlist);
     // const { cart } = useSelector((state) => state.cart);
     const { user, isAuthenticated } = useSelector((state) => state.user);
-    //   const { products } = useSelector((state) => state.products);
+    const { products } = useSelector((state) => state.products);
     const [count, setCount] = useState(1);
     const [click, setClick] = useState(false);
     const [select, setSelect] = useState(0);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    //   useEffect(() => {
-    //     // dispatch(getAllProductsShop(data && data?.shop._id));
-    //     if (wishlist && wishlist.find((i) => i._id === data?._id)) {
-    //       setClick(true);
-    //     } else {
-    //       setClick(false);
-    //     }
-    //   }, [data, wishlist]);
+    
+    useEffect(() => {
+        dispatch(getAllProductsShop(data && data?.shop._id));
+        // if (wishlist && wishlist.find((i) => i._id === data?._id)) {
+        //   setClick(true);
+        // } else {
+        //   setClick(false);
+        // }
+    // }, [data, wishlist]);
+    }, [dispatch, data]);
 
     const incrementCount = () => {
         setCount(count + 1);
@@ -119,44 +121,32 @@ const ProductDetails = ({ data }) => {
                     <div className="w-full py-5">
                         <div className="block w-full 800px:flex">
                             <div className="w-full 800px:w-[50%]">
-                                {/* <img
+                                <img
                                 src={`${data && data.images[select]?.url}`}
                                 alt=""
                                 className="w-[80%]"
-                                /> */}
-                                <img
+                                />
+                                {/* <img
                                     src={`${data.image_Url[select].url}`}
                                     alt=""
                                     className="w-[80%]"
-                                />
+                                /> */}
                                 <div className="w-full flex">
-                                {/* {data &&
-                                    data.images.map((i, index) => ( */}
+                                {data &&
+                                    data.images.map((i, index) => (
                                     <div
                                         className={`${
                                         select === 0 ? "border" : "null"
                                         } cursor-pointer`}
                                     >
                                         <img
-                                            src={`${data?.image_Url[0].url}`}
-                                            alt=""
-                                            className="h-[200px] overflow-hidden mr-3 mt-3"
-                                            onClick={() => setSelect(0)}
+                                        src={`${i?.url}`}
+                                        alt=""
+                                        className="h-[200px] overflow-hidden mr-3 mt-3"
+                                        onClick={() => setSelect(index)}
                                         />
                                     </div>
-                                    <div
-                                        className={`${
-                                        select === 1 ? "border" : "null"
-                                        } cursor-pointer`}
-                                    >
-                                        <img
-                                            src={`${data?.image_Url[1].url}`}
-                                            alt=""
-                                            className="h-[200px] overflow-hidden mr-3 mt-3"
-                                            onClick={() => setSelect(1)}
-                                        />
-                                    </div>
-                                    {/* ))} */}
+                                    ))}
                                 </div>
                             </div>
                             <div className="w-full 800px:w-[50%] pt-5">
@@ -164,12 +154,12 @@ const ProductDetails = ({ data }) => {
                                 <p>{data.description}</p>
                                 <div className="flex pt-3">
                                     <h4 className={`${styles.productDiscountPrice}`}>
-                                        {/* {data.discountPrice}$ */}
-                                        {data.discount_price}$
+                                        {data.discountPrice}$
+                                        {/* {data.discount_price}$ */}
                                     </h4>
                                     <h3 className={`${styles.price}`}>
-                                        {/* {data.originalPrice ? data.originalPrice + "$" : null} */}
-                                        {data.price ? data.price + "$" : null}
+                                        {data.originalPrice ? data.originalPrice + "$" : null}
+                                        {/* {data.price ? data.price + "$" : null} */}
                                     </h3>
                                 </div>
 
@@ -222,8 +212,8 @@ const ProductDetails = ({ data }) => {
                                 <div className="flex items-center pt-8">
                                     <Link to={`/shop/preview/${data?.shop._id}`}>
                                         <img
-                                        // src={`${data?.shop?.avatar?.url}`}
-                                        src={`${data.shop.shop_avatar.url}`}
+                                        src={`${data?.shop?.avatar?.url}`}
+                                        // src={`${data.shop.shop_avatar.url}`}
                                         alt=""
                                         className="w-[50px] h-[50px] rounded-full mr-2"
                                         />
@@ -236,7 +226,9 @@ const ProductDetails = ({ data }) => {
                                         </Link>
                                         <h5 className="pb-3 text-[15px]">
                                         {/* ({averageRating}/5) Ratings  */}
-                                        ({data.shop.ratings}) Ratings 
+                                        (4/5) Ratings 
+                                        {/* ({data.shop.ratings})  */}
+                                        
                                         </h5>
                                     </div>
                                     <div
@@ -253,7 +245,7 @@ const ProductDetails = ({ data }) => {
                     </div>
                     <ProductDetailsInfo
                         data={data}
-                        // products={products}
+                        products={products}
                         // totalReviewsLength={totalReviewsLength}
                         // averageRating={averageRating}
                     />
@@ -350,12 +342,12 @@ const ProductDetails = ({ data }) => {
                     </div>
                     ))} */}
 
-                <div className="w-full flex justify-center">
+                {/* <div className="w-full flex justify-center"> */}
                     {/* {data && data.reviews.length === 0 && (
                     <h5>No Reviews have for this product!</h5>
                     )} */}
                     <h5>No Reviews have for this product!</h5>
-                </div>
+                {/* </div> */}
                 </div>
             ) : null}
 
@@ -365,8 +357,8 @@ const ProductDetails = ({ data }) => {
                         <Link to={`/shop/preview/${data.shop._id}`}>
                         <div className="flex items-center">
                             <img
-                            // src={`${data?.shop?.avatar?.url}`}
-                            src={`${data.shop.shop_avatar.url}`}
+                            src={`${data?.shop?.avatar?.url}`}
+                            // src={`${data.shop.shop_avatar.url}`}
                             className="w-[50px] h-[50px] rounded-full"
                             alt=""
                             />
@@ -380,11 +372,11 @@ const ProductDetails = ({ data }) => {
                         </div>
                         </Link>
                         <p className="pt-2">
-                            {/* {data.shop.description} */}
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae,
+                            {data.shop.description}
+                            {/* Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae,
                             assumenda? Quisquam itaque <br /> exercitationem labore vel, dolore
                             quidem asperiores, laudantium temporibus soluta optio consequatur{" "}
-                            <br /> aliquam deserunt officia. Dolorum saepe nulla provident.
+                            <br /> aliquam deserunt officia. Dolorum saepe nulla provident. */}
                         </p>
                     </div>
                     <div className="w-full 800px:w-[50%] mt-5 800px:mt-0 800px:flex flex-col items-end">
@@ -392,15 +384,15 @@ const ProductDetails = ({ data }) => {
                         <h5 className="font-[600]">
                             Joined on:{" "}
                             <span className="font-[500]">
-                                {/* {data.shop?.createdAt?.slice(0, 10)} */}
-                                1/10/2023
+                                {data.shop?.createdAt?.slice(0, 10)}
+                                {/* 1/10/2023 */}
                             </span>
                         </h5>
                         <h5 className="font-[600] pt-3">
                             Total Products:{" "}
                             <span className="font-[500]">
-                                {/* {products && products.length} */}
-                                1,233
+                                {products && products.length}
+                                {/* 1,233 */}
                             </span>
                         </h5>
                         <h5 className="font-[600] pt-3">

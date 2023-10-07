@@ -21,8 +21,9 @@ app.use("/test", (req, res) => {
 });
 
 // app.use(bodyParser.urlencoded({ extended: true, limit: "100mb" }));
-app.use(express.json({limit: '100mb'}))
-app.use(express.urlencoded({limit: '100mb', extended: true, parameterLimit: 50000}));
+app.use(bodyParser.json({limit: '200mb'}))
+app.use(bodyParser.urlencoded({limit: '200mb', extended: true}));
+app.use(bodyParser.text({ limit: '200mb' }));
 // app.use(fileUpload({useTempFiles: true}))
 
 // config
@@ -35,9 +36,9 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 // import routes
 const user = require("./controller/user");
 const shop = require("./controller/shop");
-// const product = require("./controller/product");
-// const event = require("./controller/event");
-// const coupon = require("./controller/coupounCode");
+const product = require("./controller/product");
+const event = require("./controller/event");
+const coupon = require("./controller/couponCode");
 // const payment = require("./controller/payment");
 // const order = require("./controller/order");
 // const conversation = require("./controller/conversation");
@@ -49,9 +50,9 @@ app.use("/user", user);
 // app.use("/message", message);
 // app.use("/order", order);
 app.use("/shop", shop);
-// app.use("/product", product);
-// app.use("/event", event);
-// app.use("/coupon", coupon);
+app.use("/product", product);
+app.use("/event", event);
+app.use("/coupon", coupon);
 // app.use("/payment", payment);
 // app.use("/withdraw", withdraw);
 

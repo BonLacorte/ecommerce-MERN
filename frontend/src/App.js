@@ -7,10 +7,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from 'react';
 import Store from './redux/store';
 import { loadSeller, loadUser } from './redux/actions/user';
+import { getAllProducts } from "./redux/actions/product";
+import { getAllEvents } from "./redux/actions/event";
 import ProtectedRoute from './routes/ProtectedRoute';
 import { useSelector } from 'react-redux';
 import { ShopHomePage } from "./ShopRoutes.js"
 import SellerProtectedRoute from './routes/SellerProtectedRoute';
+import { ShopDashboardPage, ShopCreateProduct, ShopAllProducts, ShopAllEvents, ShopCreateEvents, ShopAllCoupons, ShopPreviewPage } from './routes/ShopRoutes';
 
 
 function App() {
@@ -19,8 +22,8 @@ function App() {
   useEffect(() => {
     Store.dispatch(loadUser());
     Store.dispatch(loadSeller());
-    // Store.dispatch(getAllProducts());
-    // Store.dispatch(getAllEvents());
+    Store.dispatch(getAllProducts());
+    Store.dispatch(getAllEvents());
     // getStripeApikey();
   }, []);
   return (
@@ -45,6 +48,7 @@ function App() {
             <ProfilePage />
           </ProtectedRoute>
         }/>
+        <Route path="/shop/preview/:id" element={<ShopPreviewPage />} />
         {/* shop Routes */}
         <Route path="/shop-create" element={<ShopCreatePage />} />
         <Route path="/shop-login" element={<ShopLoginPage />} />
@@ -57,7 +61,80 @@ function App() {
             </SellerProtectedRoute>
           }
         />
+        {/* <Route
+          path="/settings"
+          element={
+            <SellerProtectedRoute>
+              <ShopSettingsPage />
+            </SellerProtectedRoute>
+          }
+        /> */}
+        <Route
+          path="/dashboard"
+          element={
+            <SellerProtectedRoute>
+              <ShopDashboardPage />
+            </SellerProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard-create-product"
+          element={
+            <SellerProtectedRoute>
+              <ShopCreateProduct />
+            </SellerProtectedRoute>
+          }
+        />
+        {/* <Route
+          path="/dashboard-orders"
+          element={
+            <SellerProtectedRoute>
+              <ShopAllOrders />
+            </SellerProtectedRoute>
+          }
+        /> */}
+        {/* <Route
+          path="/dashboard-refunds"
+          element={
+            <SellerProtectedRoute>
+              <ShopAllRefunds />
+            </SellerProtectedRoute>
+          }
+        /> */}
+        <Route
+          path="/dashboard-products"
+          element={
+            <SellerProtectedRoute>
+              <ShopAllProducts />
+            </SellerProtectedRoute>
+          }
+        />
+        <Route
+        path="/dashboard-create-event"
+        element={
+          <SellerProtectedRoute>
+            <ShopCreateEvents />
+          </SellerProtectedRoute>
+        }
+        />
+        <Route
+          path="/dashboard-events"
+          element={
+            <SellerProtectedRoute>
+              <ShopAllEvents />
+            </SellerProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard-coupouns"
+          element={
+            <SellerProtectedRoute>
+              <ShopAllCoupons />
+            </SellerProtectedRoute>
+          }
+        />
       </Routes>
+      
       <ToastContainer
         position="bottom-center"
         autoClose={5000}
